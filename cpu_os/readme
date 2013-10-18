@@ -4,10 +4,10 @@ V0.1 tao
 Outline: How to test
 
 All in C. No C++
-Compile tsc with O3;
+Compile tsc with O3; // TO BE CONFIRM
 Compile the rest with O0; 
 
-Ramp up;    testing;
+Ramp up;    testing; //codes in cache
 [100 times] [10000 times]
 
 Record all the points.
@@ -15,7 +15,7 @@ data should be stored as CSV
 use excel to calc and generate the average and etc
 
 Test_bench:
-    while(testing):
+    while(testing not end):
 	pid = fork()
 	if (pid):
 	    join()
@@ -26,12 +26,33 @@ Test_bench:
 
 1. Measure overtime:
     Overtime of tsc_overhead
+
+
 2. Call function:
+    C: foo(int) ; foo(int, int);
+    C: foo(void*); //optional
+    C++: foo(int) (poly....)
+
+
+    record_time();
+    foo(...argv)
+    {
+	record_time();
+    }
+
     1. record time
     2. call function
     3. record time
 3. System Call:
-    1. No idea
+    // 1. No idea
+    System Call
+    
+    read() -> Usermode: _read() -> | kernel mode: -> entry.S (system call table) -> read......-> asm..
+    <<<<<
+
+    foo() -> | kernel mode : system call ->(our codes)
+    record();
+
 4. Task create
     kthread
     fork:
