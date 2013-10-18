@@ -15,6 +15,6 @@ int main()
     //sleep (1);
     t1 = tsc();
     t2 = tsc();
-    printf("%ld,%ld,diff=%ld\n",t1, t2, t2 - t1);
+    printf("%ld\n",t2 - t1);
 }
 #endif
