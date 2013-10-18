@@ -1,0 +1,56 @@
+V0.1 tao
+
+
+Outline: How to test
+
+All in C. No C++
+Compile tsc with O3;
+Compile the rest with O0; 
+
+Ramp up;    testing;
+[100 times] [10000 times]
+
+Record all the points.
+data should be stored as CSV
+use excel to calc and generate the average and etc
+
+Test_bench:
+    while(testing):
+	pid = fork()
+	if (pid):
+	    join()
+	else:
+	    run the testing
+	    exit(0)
+	
+
+1. Measure overtime:
+    Overtime of tsc_overhead
+2. Call function:
+    1. record time
+    2. call function
+    3. record time
+3. System Call:
+    1. No idea
+4. Task create
+    kthread
+    fork:
+	1.content copy (delete the overhead of operator++)
+	    record()
+	    fork()
+	    if (pid):
+		i++
+		record()
+	    else:
+		pass
+	2.no content copy
+	    record()
+	    fork()
+	    if (pid):
+		record()
+5. context switch time:
+    rebuild the kernel? too expensive
+    read the website's examples
+
+
+

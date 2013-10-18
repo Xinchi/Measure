@@ -8,8 +8,8 @@
  */
 
 //change it if nessary
-long long get_tsc(void);
-long long diff_tsc(long long t1, long long t2); //return the diff
+inline long long get_tsc(void);
+inline long long diff_tsc(long long t1, long long t2); //return the diff
 
 //tsc overhead
 long long tsc_overhead;
@@ -17,9 +17,9 @@ int test_tsc_overhead(); // set tsc_overhead
 
 
 //record functions
-long long timestamp1;
-long long timestamp2;
+register long long timestamp1;
+register long long timestamp2;
 
-int record_begin(void); // timestamp1 = get_tsc() return 0; 
-int record_end(void);   // timestamp2 = get_tsc() return 0;
+inline int record_begin(void); // timestamp1 = get_tsc() return 0; 
+inline int record_end(void);   // timestamp2 = get_tsc() return 0;
 long long get_result(); // return timestamp2 - timestamp1 - overhead of tsc;
