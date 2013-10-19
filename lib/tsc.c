@@ -1,20 +1,26 @@
-#include <stdio.h>
+#include "tsc.h"
 #include <time.h>
-#define DEBUG 1
-inline unsigned long tsc(void)
+#include <stdio.h>
+
+unsigned long get_tsc(void)
 {
     register unsigned int lo, hi;
     asm volatile ("rdtsc" : "=a" (lo), "=d" (hi));
     return ((unsigned long)hi << 32UL) | (unsigned long)lo;
 }
 
-#ifdef DEBUG
-int main()
+unsigned long diff_tsc(unsigned long t1, unsigned long t2)
 {
-    unsigned long t1, t2;
-    //sleep (1);
-    t1 = tsc();
-    t2 = tsc();
-    printf("%ld\n",t2 - t1);
+    return (t2 - t1);
 }
-#endif
+
+
+unsigned long test_tsc_overhead()
+{
+    timestamp1 = get_tsc();
+    timestamp2 = get_tsc();
+    return diff_tsc(timestamp1, timestamp2);
+}
+
+
+

@@ -8,22 +8,18 @@
  */
 
 //change it if nessary
-unsigned long get_tsc(void);
-//return the diff
-unsigned long diff_tsc(unsigned long t1, unsigned long t2); 
+inline long long get_tsc(void);
+inline long long diff_tsc(long long t1, long long t2); //return the diff
 
 //tsc overhead
-#define TEST_TSC_RAMPUP 10
-#define TEST_TSC_LOOP 100000
-unsigned long tsc_overhead;
-unsigned long test_tsc_overhead(); // return the unsigned long
+long long tsc_overhead;
+int test_tsc_overhead(); // set tsc_overhead
 
 
 //record functions
-unsigned long timestamp1;
-unsigned long timestamp2;
+register long long timestamp1;
+register long long timestamp2;
 
 inline int record_begin(void); // timestamp1 = get_tsc() return 0; 
 inline int record_end(void);   // timestamp2 = get_tsc() return 0;
-unsigned long get_result(); 
-//return timestamp2 - timestamp1 - overhead of tsc;
+long long get_result(); // return timestamp2 - timestamp1 - overhead of tsc;
