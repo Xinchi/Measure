@@ -1,7 +1,6 @@
 #/bin/bash
-for (( i=0; i<10000; i++ ))
-do
-    make insert
-    make remove
-done
-
+tail -0f /var/log/kern.log > kernlog &
+make insert
+sleep 10
+make remove
+pkill tail
