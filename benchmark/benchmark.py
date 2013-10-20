@@ -10,5 +10,6 @@ def test_loop(cmd, loop):
 	print run_cmd.run_cmd(cmd)
 
 if __name__ == '__main__':
-    test_loop(sys.argv[1], 1000)
+    cmd = ' '.join(sys.argv[1:])
+    test_loop(cmd, 1000)
 

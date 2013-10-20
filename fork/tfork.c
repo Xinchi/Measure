@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 
-
-#define OVERHEAD 1
 unsigned long get_tsc(void)
 {
     register unsigned int lo, hi;
@@ -13,7 +13,7 @@ unsigned long get_tsc(void)
 
 unsigned long diff_tsc(unsigned long t1, unsigned long t2)
 {
-    return (t2 - t1 - OVERHEAD);
+    return (t2 - t1);
 }
 
 int main()
@@ -22,6 +22,8 @@ int main()
     unsigned long t2;
     unsigned long diff;
     pid_t pid;
+
+    setpriority(PRIO_PROCESS, 0, -20);
 
     t1 = get_tsc();
     pid = fork();

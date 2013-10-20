@@ -44,7 +44,7 @@ int thread_init (void) {
     unsigned long t2;
     int i;
     int max;
-    max = 10000;
+    max = 20000;
 
     for (i = 0; i < max; i++)
     {
