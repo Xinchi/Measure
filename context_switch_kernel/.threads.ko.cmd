@@ -1,0 +1,1 @@
+cmd_/home/popacai/OS/prj1/context_switch_kernel/threads.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-3.5.0-17-generic/scripts/module-common.lds --build-id  -o /home/popacai/OS/prj1/context_switch_kernel/threads.ko /home/popacai/OS/prj1/context_switch_kernel/threads.o /home/popacai/OS/prj1/context_switch_kernel/threads.mod.o
