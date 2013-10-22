@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sched.h>
+#include <time.h>
 
 unsigned long get_tsc(void)
 {
@@ -26,13 +27,17 @@ int main()
     if (pid)
     {
 	t1 = get_tsc();
-	sched_yield();
-	printf("%ld\n",t1);
+	//sched_yield();
 	//give up in parent. Child has its time pieces
+	waitpid(pid);
+	printf("%ld",t1);
+	sleep(0.01);
+	return 0;
     }
     else
     {
 	t2 = get_tsc();
-	printf("%ld",t2);
+	printf("%ld\n",t2);
+	return 0;
     }
 }

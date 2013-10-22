@@ -15,17 +15,21 @@ int main(int argc, char** argv)
 
 
     pid_t pid;
-    pid = fork();
-    if (pid)
+    int i;
+    for (i = 0; i < 10; i++)
     {
-	waitpid(pid, NULL, 0);
-	fprintf(stderr,"test_done=%d\n",pid);
+	pid = fork();
+	if (pid)
+	{
+	    waitpid(pid, NULL, 0);
+	    continue;
+	}
+	else
+	{
+	    execv(exec_prg, argv + 1);
+	    return 0;
+	}
     }
-    else
-    {
-	fprintf(stderr,"exec\n");
-	sleep(1);
-    }
-    return 0;
 
+    return 0;
 }

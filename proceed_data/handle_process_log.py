@@ -10,12 +10,12 @@ t1 = []
 for line in lines:
     if (i % 2 == 0):
 	try:
-	    t2.append(int(line))
+	    t1.append(int(line))
 	except:
 	    break
     else:
 	try:
-	    t1.append(int(line))
+	    t2.append(int(line))
 	except:
 	    break
     i = i + 1
