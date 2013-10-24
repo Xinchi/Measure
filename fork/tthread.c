@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <time.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <sys/syscall.h>
-
+#include <pthread.h>
 
 unsigned long get_tsc(void)
 {
@@ -14,30 +14,29 @@ unsigned long get_tsc(void)
 
 unsigned long diff_tsc(unsigned long t1, unsigned long t2)
 {
+
     return (t2 - t1);
 }
-
-
-int main()
+int diff(int a)
 {
+    t2 = get_tsc();
+    return 0;
+}
     unsigned long t1;
     unsigned long t2;
-    unsigned long diff;
+ 
+int main()
+{
+   unsigned long diff;
+    pid_t pid;
+
     setpriority(PRIO_PROCESS, 0, -20);
 
-    pid_t pid;
-    pid = getppid();
-    pid = syscall(SYS_getppid);
-    pid = syscall(SYS_getppid);
-
-
+    pthread_t p;
     t1 = get_tsc();
-    //pid = getppid();
-    pid = getppid();
-    t2 = get_tsc();
-
-    diff = diff_tsc(t1, t2);
-    printf("%ld",diff);
+    pthread_create(&p, NULL, &diff, NULL);
+    //t2 = get_tsc();
+    printf("%ld",t2 - t1);
 
 
     return 0;

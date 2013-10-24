@@ -2,7 +2,6 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <sys/syscall.h>
 
 
 unsigned long get_tsc(void)
@@ -25,15 +24,9 @@ int main()
     unsigned long diff;
     setpriority(PRIO_PROCESS, 0, -20);
 
-    pid_t pid;
-    pid = getppid();
-    pid = syscall(SYS_getppid);
-    pid = syscall(SYS_getppid);
-
-
+    uid_t pid;
     t1 = get_tsc();
-    //pid = getppid();
-    pid = getppid();
+    pid = getuid();
     t2 = get_tsc();
 
     diff = diff_tsc(t1, t2);

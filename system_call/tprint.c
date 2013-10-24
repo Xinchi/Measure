@@ -26,17 +26,27 @@ int main()
     setpriority(PRIO_PROCESS, 0, -20);
 
     pid_t pid;
-    pid = getppid();
-    pid = syscall(SYS_getppid);
-    pid = syscall(SYS_getppid);
+    //t1 = get_tsc();
+//    pid = getpid();
+    //pid = getpid();
+//    printf("pid=%d\n",pid);
+//    printf("pid=%d\n",pid);
+    pid_t tid;
+    tid = syscall(SYS_gettid);
+    tid = getpid();
 
 
+    FILE* f;
+    f = fopen("helloworld", "w");
     t1 = get_tsc();
-    //pid = getppid();
-    pid = getppid();
+    //fprintf(stdout,"%d\n",1);
+    fflush(f);
+    //tid = syscall(SYS_tgkill, getpid(), tid, SIGHUP);
     t2 = get_tsc();
 
     diff = diff_tsc(t1, t2);
+    //printf("%d\n",tid);
+    //printf("%d\n",getpid());
     printf("%ld",diff);
 
 

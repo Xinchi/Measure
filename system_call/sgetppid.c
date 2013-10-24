@@ -30,10 +30,11 @@ int main()
     pid = syscall(SYS_getppid);
     pid = syscall(SYS_getppid);
 
+    pid = getppid();
 
     t1 = get_tsc();
     //pid = getppid();
-    pid = getppid();
+    pid = syscall(SYS_getppid);
     t2 = get_tsc();
 
     diff = diff_tsc(t1, t2);
