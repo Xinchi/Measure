@@ -6,8 +6,8 @@
 #include <sys/stat.h>
 #include "bw.h"
 
-//#define fake 1
-//#define step 1
+#define fake 1
+#define step 1
 #define cp 1
 unsigned long get_tsc(void)
 {
@@ -43,7 +43,7 @@ int main()
     int size, chunk_size;
     int i;
     unsigned long t1, t2;
-    size = 500 * 1024;
+    size = 512 * 1024;
     chunk_size = 1024;
 
     array1 = malloc(size * sizeof(char*));
@@ -62,7 +62,7 @@ int main()
 	memset(array1[i], 'b', chunk_size);
 	memset(array2[i], 'c', chunk_size);
     }
-    for (i = size - 100; i < size; i++)
+    for (i = size - 10; i < size; i++)
     {
 	memcpy(array1[i], array2[i],chunk_size);
     }
@@ -99,7 +99,7 @@ int main()
     t2 = get_tsc();
     printf("%f\n", (t2 - t1) * 1.0/ size);
 
-    for (i = 0; i < 500 * 1024; i++)
+    for (i = 0; i < 512 * 1024; i++)
     {
 	free(array2[i]);
 	free(array1[i]);
