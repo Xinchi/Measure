@@ -1,2 +1,2 @@
 all:
-	gcc -o memorybandwidth memorybandwidth.c -O0
+	@gcc -o memorybandwidth memorybandwidth.c -O0
