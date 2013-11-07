@@ -4,7 +4,11 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include "bw.h"
 
+#define fake 1
+//#define step 1
+//#define cp 1
 unsigned long get_tsc(void)
 {
     register unsigned int lo, hi;
@@ -12,15 +16,26 @@ unsigned long get_tsc(void)
     return ((unsigned long)hi << 32UL) | (unsigned long)lo;
 }
 
-#define DOIT(i) dst[i] = src[i];
-
-
-void fake_memcpy(int* dst, int* src, int size)
+int fake_memset_char(char* dst, char* src, int chunk_size)
 {
-    
-
+    memset_char;
+    return 0;
 }
-
+int fake_memset_int(char* dst, char* src, int chunk_size)
+{
+    memset_int;
+    return 0;
+}
+int fake_memcpy_char(char* dst, char* src,int chunk_size)
+{
+    memcpy_char;
+    return 0;
+}
+int fake_memcpy_int(char* dst, char* src , int chunk_size)
+{
+    memcpy_int;
+    return 0;
+}
 int main()
 {
     char** array1;
@@ -52,15 +67,34 @@ int main()
 	memcpy(array1[i], array2[i],chunk_size);
     }
 
-    size = size; // Delete the memory in cache
+    size = size - 10 * 1024; // Delete the memory in cache
 
 
     //start to test
     t1 = get_tsc();
     for (i = 0; i < size; i++)
     {
-	memcpy(array2[i], array1[i], chunk_size);
-	//fake_memcpy(array2[i], array1[i],chunk_size);
+	#ifdef cp
+	    #ifdef fake
+		#ifdef step
+		    fake_memcpy_int(array2[i], array1[i],chunk_size);
+		#else
+		    fake_memcpy_char(array2[i], array1[i],chunk_size);
+		#endif
+	    #else
+		memcpy(array2[i], array1[i], chunk_size);
+	    #endif
+	#else
+	    #ifdef fake
+		#ifdef step
+		    fake_memset_int(array2[i], 0, chunk_size);
+		#else
+		    fake_memset_char(array2[i], 0, chunk_size);
+		#endif
+	    #else
+		memset(array2[i], 0, chunk_size);
+	    #endif
+	#endif
     }
     t2 = get_tsc();
     printf("%f\n", (t2 - t1) * 1.0/ size);
