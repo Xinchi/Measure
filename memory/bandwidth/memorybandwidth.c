@@ -7,7 +7,7 @@
 #include "bw.h"
 
 #define fake 1
-#define step 1
+//#define step 1
 #define cp 1
 unsigned long get_tsc(void)
 {
@@ -97,7 +97,7 @@ int main()
 	#endif
     }
     t2 = get_tsc();
-    printf("%f\n", (t2 - t1) * 1.0/ size);
+    printf("%f", (t2 - t1) * 1.0/ size);
 
     for (i = 0; i < 512 * 1024; i++)
     {

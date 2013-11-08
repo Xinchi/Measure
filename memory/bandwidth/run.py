@@ -15,11 +15,14 @@ def set_flag(context ,message, value):
 	context = context.replace(m, nm)
     return context
 
+original_path = os.getcwd()
+current_path = os.path.realpath(__file__).replace("run.py", "")
+os.chdir(current_path)
 if (len(sys.argv) < 2):
     print '[bandwidth] run.py, memcpy/memset/charset/charcpy/intset/intcpy'
     exit();
 
-f = open("memorybandwidth.c", "r")
+f = open(current_path + "memorybandwidth.c", "r")
 context = f.read()
 f.close()
 
@@ -61,3 +64,4 @@ f.close()
 os.system("make")
 os.system("./memorybandwidth")
 
+os.chdir(original_path)

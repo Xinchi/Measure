@@ -17,36 +17,51 @@ unsigned long get_tsc(void)
 int main()
 {
     int fd;
-    unsigned long t1, t2;
     unsigned char* dst;
     int size, chunksize;
-    size = 1024 * 1024;
-    chunksize = 1024;
+    //size = 1024 * 1024;
+    chunksize = 256 * 1024 * 2;
+    size = 1024 * 1024 * 1024 / chunksize;
+
     fd = open("/home/popacai/ram/ram", O_RDONLY);
 
 
     int pos;
 
-    pos = 0;
-    dst = mmap(size * pos , size * chunksize , PROT_READ, MAP_SHARED, fd, 0);
+    pos = 2;
+    dst = mmap(size * pos , size * chunksize, PROT_READ, MAP_SHARED, fd, 0);
 
 
     int i, j;
-    unsigned char tmp[1024];	
+    unsigned char tmp[chunksize];	
     unsigned char c;
-    t1 = get_tsc();
+    unsigned long long sum;
+    int flag;
+    flag = 0;
+    sum = 0;
+    long a1, a2;
+    a1 = time(0);
+    struct timeval t1;
+    struct timeval t2;
+    gettimeofday(&t1, NULL);
     for (i = 0; i < (size * chunksize); i += chunksize)
     {
-	//memcpy(tmp, dst+i, chunksize);
 	//memcpy_char;
 	c = dst[i];
+	//memcpy(tmp, dst+i, chunksize);
     }
-    t2 = get_tsc();
+    gettimeofday(&t2, NULL);
+
+    long long interval;
+    interval = (t2.tv_sec - t1.tv_sec) * 1000000
+		+ (t2.tv_usec - t1.tv_usec);
+    
+    printf("%lf\n",interval * 1.0 / size);
+    
     munmap(dst, size* chunksize);
     //msync(dst, size* chunksize, MS_ASYNC);
     //printf("%c\n", *(dst + size* chunksize - 1));
     //printf("%ld\n", (t2 - t1));
-    printf("%ld\n", (t2 - t1) / size);
     close(fd);
     exit(0);
 }

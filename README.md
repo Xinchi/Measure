@@ -17,6 +17,7 @@ Good luck and enjoy :-D
 Usage:
 
 benchmark:
+
     nice python benchmark [test_prg] [argv] -n -20
     bash script is also provided
 
@@ -42,6 +43,7 @@ fork: tfork.c
     tfork: create a process
 
 kthread: thread.c
+
     make insert: to insert a module
     make remove: remove a module
 
