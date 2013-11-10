@@ -45,7 +45,7 @@ int main()
     int i;
     unsigned long t1, t2;
 
-    chunk_size = 1024 * 1024 * 512; // 255MB
+    chunk_size = 1024 * 1024 * 512; // 512NB 
 
     
 
