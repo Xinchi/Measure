@@ -1,0 +1,206 @@
+2 pagefault in 256K
+
+avg_latency:
+11948.351074 = 11.9 ms
+
+free
+             total       used       free     shared    buffers     cached
+Mem:       3978236     919956    3058280          0       8180     106880
+-/+ buffers/cache:     804896    3173340
+Swap:      1952764          0    1952764
+             total       used       free     shared    buffers     cached
+Mem:       3978236     920088    3058148          0       8180     107036
+-/+ buffers/cache:     804872    3173364
+Swap:      1952764          0    1952764
+             total       used       free     shared    buffers     cached
+Mem:       3978236    1445936    2532300          0       8232     631292
+-/+ buffers/cache:     806412    3171824
+Swap:      1952764          0    1952764
+
+sar 
+Linux 3.5.0-17-generic (popacai-ThinkPad-R400) 	11/10/2013 	_x86_64_	(1 CPU)
+
+10:13:01 AM  pgpgin/s pgpgout/s   fault/s  majflt/s  pgfree/s pgscank/s pgscand/s pgsteal/s    %vmeff
+10:13:02 AM      0.00      0.00     45.10      0.00    312.75      0.00      0.00      0.00      0.00
+10:13:03 AM      0.00      0.00     30.30      0.00    178.79      0.00      0.00      0.00      0.00
+10:13:04 AM     12.12      0.00    440.40      1.01    342.42      0.00      0.00      0.00      0.00
+10:13:05 AM      0.00     39.60     19.80      0.00    126.73      0.00      0.00      0.00      0.00
+10:13:06 AM      0.00     56.57    155.56      0.00    233.33      0.00      0.00      0.00      0.00
+10:13:07 AM      0.00      0.00     29.29      0.00    192.93      0.00      0.00      0.00      0.00
+10:13:08 AM      0.00      0.00   1158.59      0.00    556.57      0.00      0.00      0.00      0.00
+10:13:09 AM      0.00      0.00    124.49      0.00    181.63      0.00      0.00      0.00      0.00
+10:13:10 AM     16.49     86.60    875.26      1.03    532.99      0.00      0.00      0.00      0.00
+10:13:11 AM    549.02     86.27   3924.51     16.67   1115.69      0.00      0.00      0.00      0.00
+10:13:12 AM  14840.82      0.00    564.29    116.33    256.12      0.00      0.00      0.00      0.00
+10:13:13 AM  20736.00      0.00    448.00    162.00    165.00      0.00      0.00      0.00      0.00
+10:13:14 AM  22144.00      0.00    470.00    173.00    179.00      0.00      0.00      0.00      0.00
+10:13:15 AM  20352.00     20.00    442.00    159.00    169.00      0.00      0.00      0.00      0.00
+10:13:16 AM  22334.69     53.06    478.57    174.49    167.35      0.00      0.00      0.00      0.00
+10:13:17 AM  20224.00      0.00    440.00    158.00    157.00      0.00      0.00      0.00      0.00
+10:13:18 AM  22884.85      0.00    482.83    178.79    170.71      0.00      0.00      0.00      0.00
+10:13:19 AM  20816.16      0.00    450.51    162.63    159.60      0.00      0.00      0.00      0.00
+10:13:20 AM  22558.42      0.00    475.25    176.24    156.44      0.00      0.00      0.00      0.00
+10:13:21 AM  21417.82      0.00    457.43    167.33    165.35      0.00      0.00      0.00      0.00
+10:13:22 AM  19722.45     40.82    434.69    154.08    161.22      0.00      0.00      0.00      0.00
+10:13:23 AM  22755.56      0.00    480.81    177.78    155.56      0.00      0.00      0.00      0.00
+10:13:24 AM  21420.41      0.00    461.22    167.35    171.43      0.00      0.00      0.00      0.00
+10:13:25 AM  20945.45      0.00    452.53    163.64    161.62      0.00      0.00      0.00      0.00
+10:13:26 AM  22144.00      0.00    470.00    173.00    163.00      0.00      0.00      0.00      0.00
+10:13:27 AM  20864.00     40.00    450.00    163.00    174.00      0.00      0.00      0.00      0.00
+10:13:28 AM  20530.69      0.00    443.56    160.40    160.40      0.00      0.00      0.00      0.00
+10:13:29 AM  23040.00      0.00    484.00    180.00    161.00      0.00      0.00      0.00      0.00
+10:13:30 AM  21591.92      0.00    462.63    168.69    171.72      0.00      0.00      0.00      0.00
+10:13:31 AM  21721.21      0.00    464.65    169.70    162.63      0.00      0.00      0.00      0.00
+10:13:32 AM  21760.00     36.00    464.00    170.00    162.00      0.00      0.00      0.00      0.00
+10:13:33 AM  20816.16      0.00    450.51    162.63    179.80      0.00      0.00      0.00      0.00
+10:13:34 AM  22987.76      0.00    483.67    179.59    163.27      0.00      0.00      0.00      0.00
+10:13:35 AM  22238.38      0.00    470.71    173.74    172.73      0.00      0.00      0.00      0.00
+10:13:36 AM  16678.79      0.00    854.55    130.30    817.17      0.00      0.00      0.00      0.00
+
+iostat
+Linux 3.5.0-17-generic (popacai-ThinkPad-R400) 	11/10/2013 	_x86_64_	(1 CPU)
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               6.67     2.74   12.59    1.88   513.83    43.71    77.07     0.79   54.65   57.71   34.17   4.09   5.92
+sdb               9.93    57.33    0.46    0.24     9.40    28.81   108.94     0.15  211.48    7.47  593.46   5.68   0.40
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00    5.94    0.00    63.37     0.00    21.33     0.05    8.00    8.00    0.00   6.00   3.56
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00    1.01    0.00    12.12     0.00    24.00     0.01    8.00    8.00    0.00   8.00   0.81
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00    0.00    1.98     0.00    39.60    40.00     0.00    0.00    0.00    0.00   0.00   0.00
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00    11.11    0.00    3.03     0.00    56.57    37.33     0.04   12.00    0.00   12.00  12.00   3.64
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     3.06    0.00   18.37     0.00    85.71     9.33     0.02    1.33    0.00    1.33   0.22   0.41
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00    13.86   73.27    7.92   570.30    87.13    16.20     0.64    7.85    7.46   11.50   4.83  39.21
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  112.24    0.00 13926.53     0.00   248.15     0.65    5.82    5.82    0.00   5.71  64.08
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  162.00    0.00 20608.00     0.00   254.42     0.99    6.07    6.07    0.00   6.10  98.80
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  177.00    0.00 22400.00     0.00   253.11     1.00    5.72    5.72    0.00   5.58  98.80
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  159.00    4.00 20096.00    20.00   246.82     1.00    6.11    6.26    0.00   6.06  98.80
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  179.59    0.00 22987.76     0.00   256.00     1.01    5.64    5.64    0.00   5.61 100.82
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     6.93  154.46    5.94 19516.83    51.49   244.00     1.09    6.81    6.41   17.33   6.10  97.82
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  178.79    0.00 22884.85     0.00   256.00     1.00    5.60    5.60    0.00   5.60 100.20
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  162.63    0.00 20816.16     0.00   256.00     1.00    6.16    6.16    0.00   6.16 100.20
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  178.00    0.00 22784.00     0.00   256.00     0.98    5.53    5.53    0.00   5.53  98.40
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  168.32    0.00 21544.55     0.00   256.00     0.97    5.79    5.79    0.00   5.76  97.03
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     3.06  153.06    7.14 19591.84    40.82   245.10     1.11    6.96    6.64   13.71   6.34 101.63
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  177.00    0.00 22528.00     0.00   254.55     1.00    5.65    5.65    0.00   5.63  99.60
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  171.43    0.00 21289.80     0.00   248.38     1.05    6.14    6.14    0.00   5.95 102.04
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  164.65    0.00 21074.75     0.00   256.00     0.99    5.99    5.99    0.00   6.01  98.99
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  172.00    0.00 22016.00     0.00   256.00     1.00    5.79    5.79    0.00   5.79  99.60
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     3.00  164.00    7.00 20992.00    40.00   245.99     1.08    6.34    6.02   13.71   5.78  98.80
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  162.00    0.00 20736.00     0.00   256.00     0.98    6.10    6.10    0.00   6.07  98.40
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  179.00    0.00 22912.00     0.00   256.00     0.99    5.52    5.52    0.00   5.52  98.80
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  169.70    0.00 21721.21     0.00   256.00     0.99    5.86    5.86    0.00   5.86  99.39
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  168.69    0.00 21591.92     0.00   256.00     1.01    5.94    5.94    0.00   5.96 100.61
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     3.00  172.00    6.00 22016.00    36.00   247.78     1.08    6.07    5.81   13.33   5.60  99.60
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  161.62    0.00 20686.87     0.00   256.00     1.00    6.15    6.15    0.00   6.20 100.20
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  178.57    0.00 22857.14     0.00   256.00     1.02    5.74    5.74    0.00   5.69 101.63
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  174.75    0.00 22367.68     0.00   256.00     0.99    5.66    5.66    0.00   5.69  99.39
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  136.00    0.00 17408.00     0.00   256.00     0.84    6.18    6.18    0.00   6.15  83.60
+sdb               0.00     0.00    0.00    0.00     0.00     0.00     0.00     0.00    0.00    0.00    0.00   0.00   0.00
+

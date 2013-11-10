@@ -4,7 +4,6 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
-#include "bw.h"
 
 unsigned long get_tsc(void)
 {
@@ -31,6 +30,7 @@ int main()
     pos = 2;
     dst = mmap(size * pos , size * chunksize, PROT_READ, MAP_SHARED, fd, 0);
 
+    int input;
 
     int i, j;
     unsigned char tmp[chunksize];	
@@ -43,12 +43,14 @@ int main()
     a1 = time(0);
     struct timeval t1;
     struct timeval t2;
+    int number = 0;
     gettimeofday(&t1, NULL);
     for (i = 0; i < (size * chunksize); i += chunksize)
     {
-	//memcpy_char;
-	c = dst[i];
-	//memcpy(tmp, dst+i, chunksize);
+	//c = dst[i];
+	//c = dst[i + 140 * 1024];
+	memcpy(tmp, dst+i, chunksize / 2 - 10);
+	number++;
     }
     gettimeofday(&t2, NULL);
 
@@ -56,7 +58,7 @@ int main()
     interval = (t2.tv_sec - t1.tv_sec) * 1000000
 		+ (t2.tv_usec - t1.tv_usec);
     
-    printf("%lf\n",interval * 1.0 / size);
+    printf("%lf\n", interval * 1.0 / number);
     
     munmap(dst, size* chunksize);
     //msync(dst, size* chunksize, MS_ASYNC);

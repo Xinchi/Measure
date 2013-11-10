@@ -8,7 +8,7 @@
 
 #define fake 1
 //#define step 1
-#define cp 1
+//#define cp 1
 unsigned long get_tsc(void)
 {
     register unsigned int lo, hi;
@@ -18,7 +18,11 @@ unsigned long get_tsc(void)
 
 int fake_memset_char(char* dst, char* src, int chunk_size)
 {
-    memset_char;
+    int j;
+    for (j = 0; j < (chunk_size / 1024); j++)
+    {
+	memset_char;
+    }
     return 0;
 }
 int fake_memset_int(char* dst, char* src, int chunk_size)
@@ -28,7 +32,11 @@ int fake_memset_int(char* dst, char* src, int chunk_size)
 }
 int fake_memcpy_char(char* dst, char* src,int chunk_size)
 {
-    memcpy_char;
+    int j;
+    for (j = 0; j < (chunk_size / 1024); j++)
+    {
+	memcpy_char;
+    }
     return 0;
 }
 int fake_memcpy_int(char* dst, char* src , int chunk_size)
@@ -36,15 +44,26 @@ int fake_memcpy_int(char* dst, char* src , int chunk_size)
     memcpy_int;
     return 0;
 }
-int main()
+int main(int argc, char** argv)
 {
     char** array1;
     char** array2;
-    int size, chunk_size;
-    int i;
+    long long size, chunk_size;
+    int i,j ;
     unsigned long t1, t2;
-    size = 512 * 1024;
-    chunk_size = 1024;
+    size = 256 * 1024;
+    if (argc == 1)
+    {
+	chunk_size = 512;
+    }else{
+	chunk_size = atoi(argv[1]);
+	//fprintf(stderr,"chunk_size=%d",chunk_size);
+	while ((chunk_size * size) > (512 * 1024 * 1024))
+	{
+	    size = size / 2;
+	}
+//	printf("%f\n", size * chunk_size * 1.0 / 1024 / 1024 / 1024);
+    }
 
     array1 = malloc(size * sizeof(char*));
     array2 = malloc(size * sizeof(char*));
@@ -72,6 +91,8 @@ int main()
 
     //start to test
     t1 = get_tsc();
+    struct timeval n1, n2;
+    gettimeofday(&n1);
     for (i = 0; i < size; i++)
     {
 	#ifdef cp
@@ -96,10 +117,17 @@ int main()
 	    #endif
 	#endif
     }
+    gettimeofday(&n2);
     t2 = get_tsc();
-    printf("%f", (t2 - t1) * 1.0/ size);
+    //printf("%f", (t2 - t1) * 1.0/ size);
+    //printf("%ld", (t2 - t1));
+    long interval = 0;
+    interval = (n2.tv_sec - n1.tv_sec) * 1000000
+		+ (n2.tv_usec - n1.tv_usec);
+    //printf("%lf\n", 502.0 * 1000000 / (interval) );
+    printf("%lf", (size / 1024 - 10) * chunk_size * 1000000.0 / 1024 / (interval) );
 
-    for (i = 0; i < 512 * 1024; i++)
+    for (i = 0; i < size + 10; i++)
     {
 	free(array2[i]);
 	free(array1[i]);

@@ -19,7 +19,7 @@ original_path = os.getcwd()
 current_path = os.path.realpath(__file__).replace("run.py", "")
 os.chdir(current_path)
 if (len(sys.argv) < 2):
-    print '[bandwidth] run.py, memcpy/memset/charset/charcpy/intset/intcpy'
+    print '[bandwidth] run.py, memcpy/memset/charset/charcpy/intset/intcpy/longcpy/longset'
     exit();
 
 f = open(current_path + "memorybandwidth.c", "r")
@@ -56,12 +56,24 @@ if (command == 'intcpy'):
     context = set_flag(context, "fake", True)
     context = set_flag(context, "step", True)
     context = set_flag(context, "cp", True)
+if (command == 'longcpy'):
+    os.system("./m")
+    os.chdir(original_path)
+    exit()
+
+if (command == 'longset'):
+    os.system("./n")
+    os.chdir(original_path)
+    exit()
 
 f = open("memorybandwidth.c", "w")
 f.write(context)
 f.close()
 
 os.system("make")
-os.system("./memorybandwidth")
+try:
+    os.system("./memorybandwidth " + sys.argv[2])
+except:
+    os.system("./memorybandwidth")
 
 os.chdir(original_path)
