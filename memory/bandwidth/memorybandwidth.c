@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include "bw.h"
 
-#define fake 1
+//#define fake 1
 //#define step 1
 //#define cp 1
 unsigned long get_tsc(void)
@@ -18,11 +18,7 @@ unsigned long get_tsc(void)
 
 int fake_memset_char(char* dst, char* src, int chunk_size)
 {
-    int j;
-    for (j = 0; j < (chunk_size / 1024); j++)
-    {
-	memset_char;
-    }
+    memset_char;
     return 0;
 }
 int fake_memset_int(char* dst, char* src, int chunk_size)
@@ -32,11 +28,7 @@ int fake_memset_int(char* dst, char* src, int chunk_size)
 }
 int fake_memcpy_char(char* dst, char* src,int chunk_size)
 {
-    int j;
-    for (j = 0; j < (chunk_size / 1024); j++)
-    {
-	memcpy_char;
-    }
+    memcpy_char;
     return 0;
 }
 int fake_memcpy_int(char* dst, char* src , int chunk_size)
@@ -81,11 +73,12 @@ int main(int argc, char** argv)
 	memset(array1[i], 'b', chunk_size);
 	memset(array2[i], 'c', chunk_size);
     }
-    for (j = 0; j < 10240; j++)
+    for (j = 0; j < 1024; j++)
     {
-	for (i = size - 10; i < size; i++)
+	for (i = size - 10 * 1024; i < size; i++)
 	{
-	    memcpy(array1[i], array2[i],chunk_size);
+	    memset(array1[i], 0, chunk_size);
+	    //memcpy(array1[i], array2[i],chunk_size);
 	}
     }
     size = size - 10 * 1024; // Delete the memory in cache
