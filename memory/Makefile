@@ -6,3 +6,8 @@ all:
 
 test:
 	./mem_read
+
+clean:
+	rm l1
+	rm l2
+	rm mem
