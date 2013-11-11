@@ -6,9 +6,9 @@
 #include <sys/stat.h>
 #include "bw.h"
 
-#define fake 1
+//#define fake 1
 //#define step 1
-//#define cp 1
+#define cp 1
 unsigned long get_tsc(void)
 {
     register unsigned int lo, hi;

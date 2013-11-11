@@ -17,10 +17,10 @@ unsigned long diff_tsc(unsigned long t1, unsigned long t2)
     return (t2 - t1 - 67);
 }
 
-#define TIMES 40
-#define STRIDE 1024 //b
-#define HOT_SIZE 40 //kb
-#define TARGET_SIZE 40//kb
+#define TIMES 320
+#define STRIDE 1024
+#define HOT_SIZE 32
+#define TARGET_SIZE 320//kb, should equal TIMES*STRIDES/1024
 
 int test()
 {
@@ -85,7 +85,7 @@ int test()
 	    index = l2[index];
 	t2 = get_tsc();
 	diff = 1.0 * diff_tsc(t1,t2) / TIMES;
-	printf("%f\n",diff);
+	printf("%lf\n",diff);
 
 	free(l1);
 	free(l2);
