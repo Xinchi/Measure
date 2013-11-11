@@ -8,7 +8,7 @@
 
 //#define fake 1
 //#define step 1
-#define cp 1
+//#define cp 1
 unsigned long get_tsc(void)
 {
     register unsigned int lo, hi;
@@ -81,11 +81,13 @@ int main(int argc, char** argv)
 	memset(array1[i], 'b', chunk_size);
 	memset(array2[i], 'c', chunk_size);
     }
-    for (i = size - 10; i < size; i++)
+    for (j = 0; j < 10240; j++)
     {
-	memcpy(array1[i], array2[i],chunk_size);
+	for (i = size - 10; i < size; i++)
+	{
+	    memcpy(array1[i], array2[i],chunk_size);
+	}
     }
-
     size = size - 10 * 1024; // Delete the memory in cache
 
 
