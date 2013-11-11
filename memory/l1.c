@@ -19,7 +19,7 @@ unsigned long diff_tsc(unsigned long t1, unsigned long t2)
 
 #define TIMES 40
 #define STRIDE 1024 //b
-#define HOT_SIZE 40 //kb
+#define HOT_SIZE 0  //kb
 #define TARGET_SIZE 40//kb
 
 int test()
