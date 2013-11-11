@@ -52,10 +52,10 @@ int test()
 	int index =0;
 	int j = 0;
 
-	//hot l1 and l2
+	//hot HOT and TARGET
 	for (i = 0; i < 10240; i++)
 	{
-		for(j = 0;j< (8 * 1024 / 4);j++)
+		for(j = 0;j< (HOT_SIZE * 1024 / 4);j++)
 		{
 			index = l1[j];
 		}
@@ -85,7 +85,7 @@ int test()
 	    index = l2[index];
 	t2 = get_tsc();
 	diff = 1.0 * diff_tsc(t1,t2) / TIMES;
-	printf("%lf\n",diff);
+	printf("%f\n",diff);
 
 	free(l1);
 	free(l2);

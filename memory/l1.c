@@ -52,10 +52,10 @@ int test()
 	int index =0;
 	int j = 0;
 
-	//hot l1 and l2
+	//hot and target
 	for (i = 0; i < 10240; i++)
 	{
-		for(j = 0;j< (8 * 1024 / 4);j++)
+		for(j = 0;j< (HOT_SIZE * 1024 / 4);j++)
 		{
 			index = l1[j];
 		}
@@ -64,7 +64,7 @@ int test()
 			index = l2[j];
 		}
 	}
-	//hot l1+l2
+	//hot HOT_SIZE
 	for(i=0;i<10240;i++)
 	{
 		for(j = 0;j< (HOT_SIZE * 1024 / 4);j++)
