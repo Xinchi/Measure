@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include "bw.h"
 
-//#define fake 1
+#define fake 1
 //#define step 1
 //#define cp 1
 unsigned long get_tsc(void)
@@ -95,6 +95,7 @@ int main(int argc, char** argv)
     t1 = get_tsc();
     struct timeval n1, n2;
     gettimeofday(&n1);
+    char a;
     for (i = 0; i < size; i++)
     {
 	#ifdef cp
