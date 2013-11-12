@@ -18,9 +18,9 @@ unsigned long diff_tsc(unsigned long t1, unsigned long t2)
 }
 
 #define TIMES 320
-#define STRIDE 1024
-#define HOT_SIZE 32
-#define TARGET_SIZE 320//kb, should equal TIMES*STRIDES/1024
+#define STRIDE 1096
+#define HOT_SIZE 3172
+#define TARGET_SIZE 320//kb
 
 int test()
 {
@@ -64,7 +64,7 @@ int test()
 			index = l2[j];
 		}
 	}
-	//hot l1+l2
+	//hot HOT_SIZE
 	for(i=0;i<10240;i++)
 	{
 		for(j = 0;j< (HOT_SIZE * 1024 / 4);j++)
