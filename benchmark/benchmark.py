@@ -11,7 +11,7 @@ def test_loop(cmd, loop):
 
 if __name__ == '__main__':
     cmd = ' '.join(sys.argv[1:])
-    #test_once(cmd)
+    test_once(cmd)
     #test_loop(cmd, 15000)
-    test_loop(cmd, 100)
+    #test_loop(cmd, 100)
 
