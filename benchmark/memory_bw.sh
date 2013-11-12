@@ -1,5 +1,5 @@
-#echo "" > bw_memcpy.log
-#echo "" > bw_memset.log
+echo "" > bw_memcpy.log
+echo "" > bw_memset.log
 echo "" > bw_charcpy.log
 echo "" > bw_charset.log
 echo "" > bw_longcpy.log
@@ -22,9 +22,6 @@ do
     echo $i >> bw_memset.log
     python benchmark.py ../memory/bandwidth/run.py memset $i >> bw_memset.log
 done
-
-exit
-
 
 for i in $run
 do
