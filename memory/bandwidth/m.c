@@ -45,10 +45,7 @@ int main()
     int i;
     unsigned long t1, t2;
 
-    chunk_size = 1024 * 1024 * 512; // 512NB 
-
-    
-
+    chunk_size = 1024 * 1024 * 512; // 255MB
     
     array1 = malloc(chunk_size);
     array2 = malloc(chunk_size);
@@ -61,15 +58,18 @@ int main()
     t1 = get_tsc();
 
     struct timeval n1, n2;
+    fprintf(stderr, "addr=%lu,%lu\n",array1, array2);
     gettimeofday(&n1);
 
     memcpy(array1, array2, chunk_size);
+    //memset(array1, 0, chunk_size);
     gettimeofday(&n2);
     //t2 = get_tsc();
     long interval = 0;
     interval = (n2.tv_sec - n1.tv_sec) * 1000000
 		+ (n2.tv_usec - n1.tv_usec);
-    printf("%lf\n", 512.0 * 1000000 / (interval) );
+    printf("%ld,", interval);
+    printf("%lf,\n", 512.0 * 1000000 / (interval) );
     //printf("%ld", (n2 - n1));
     free(array3);
     free(array2);

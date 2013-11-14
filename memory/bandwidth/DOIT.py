@@ -1,12 +1,29 @@
-for i in range(1024 * 256 * 2):
-    print 'copy(%d);' % (i), 
-print
-for i in range(1024):
-    print 'set(%d);' % (i), 
-print
-for i in range(1024 / 4):
-    print 'copy_int(%d);' % (i), 
-print
-for i in range(1024 / 4):
-    print 'set_int(%d);' % (i), 
+size = 1024
 
+for i in range(size):
+    item = "src[%d] & " % i
+    print item, 
+print
+
+for i in range(size / 8):
+    item = "((long*)src)[%d] & " % i
+    print item, 
+print 
+for i in range(size / 4):
+    item = "((int*)src)[%d] & " % i
+    print item, 
+
+print
+for i in range(size + 1):
+    item = "src[%d] = " % i
+    print item, 
+print
+
+for i in range((size + 1) / 8):
+    item = "((long*)src)[%d] = " % i
+    print item, 
+print 
+for i in range((size + 1) / 4):
+    item = "((int*)src)[%d] = " % i
+    print item, 
+print

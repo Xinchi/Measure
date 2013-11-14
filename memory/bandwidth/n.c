@@ -70,7 +70,8 @@ int main()
     long interval = 0;
     interval = (n2.tv_sec - n1.tv_sec) * 1000000
 		+ (n2.tv_usec - n1.tv_usec);
-    printf("%lf\n", 512.0 * 1000000 / (interval) );
+    printf("%ld,", interval);
+    printf("%lf,\n", 512.0 * 1000000 / (interval) );
     //printf("%ld", (n2 - n1));
     free(array3);
     free(array2);
