@@ -30,8 +30,9 @@ class GTTimer(Thread):
 	self.reset()
 
 class GTSocket(Thread):
-    def __init__(self, connection, action, vector):
+    def __init__(self, connection, action, vector, address = ''):
 	Thread.__init__(self)
+	self.address = address
 	self.connection = connection
 	self.action = action
 	self.vector = vector
@@ -39,10 +40,13 @@ class GTSocket(Thread):
 	if self.action == 'recv':
 	    while True:
 	        message = self.connection.recv(8196)
-		self.vector[1] += len(message)
 	if self.action == 'send':
 	    while (True):
-		self.vector[1] += self.connection.send(huge_message)
+		if address == '':
+		    self.vector[1] += self.connection.send(huge_message)
+		else:
+		    self.vector[1] += self.connection.send(huge_message, address)
+
     
 
 def make_connection(addr, types):
@@ -76,11 +80,16 @@ def main():
     t.setDaemon(True)
     if (action == 'recv'):
 	s = make_listen((addr, port), types)
-	s.listen(20)
+	if (types == 'TCP'):
+	    s.listen(20)
 	while (True):
-	    conn, addr = s.accept()
-	    print addr
-	    g = GTSocket(conn, 'recv', vector)
+	    if (types == 'TCP'):
+	        conn, addr = s.accept()
+		print addr
+		g = GTSocket(conn, 'recv', vector)
+	    else:
+		g = GTSocket(s, 'recv', vector)
+
 	    g.setDaemon(True)
 	    g.start()
 
