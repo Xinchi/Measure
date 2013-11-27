@@ -1,0 +1,29 @@
+Test methodology:
+
+1. RTT Time
+    RTT = OS overhead (TCP/IP protocol Stack) - NIC overhead - network overhead(ignored) - NIC overhead - OS overhead
+    
+    3 methods:
+    1. TCP connection step. SYN -> ACK SYN -> ACK 
+    2. TCP send and recv
+    3. UDP send and recv
+    4. ICMP send and recv
+
+    delete the first time. (ARP request).
+
+
+    OS overhead.
+	127.0.0.1
+	go through network
+
+2. Bandwidth
+    Parallel way option
+
+    TCP / UDP/
+    Different size of packet. MTU. 
+    
+    TCP load line (TODO: libpcap)
+
+
+    RAW (TODO:) libpcap ? raw_socket if you like.
+
