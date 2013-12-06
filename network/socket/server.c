@@ -9,11 +9,13 @@
 #include <netinet/in.h>
 #include <signal.h>
 #include <pthread.h>
+#include <time.h>
 
 int sockfd, newsockfd;
 int sock_pool[64];
 pthread_t thread[64];
 int count;
+unsigned long long total;
 
 void sig_handler(int signo)
 {
@@ -31,6 +33,26 @@ void sig_handler(int signo)
     }
 }
 
+void* timer()
+{
+    struct timeval now;
+    struct timeval old;
+    unsigned long long t;
+    gettimeofday(&now);
+    while (1)
+    {
+	/*
+	old = now;
+	gettimeofday(&now);
+
+	t = (now.tv_sec - old.tv_sec)* 1000000 + 
+	    (now.tv_usec - old.tv_usec);
+	    */
+	printf("Mbps=,%f\n", (total * 8.0 / 1000000));
+	total = 0;
+	sleep(1);
+    }
+}
 void* receiver(void* input)
 {
     int n;
@@ -45,7 +67,8 @@ void* receiver(void* input)
 	{
 	    break;
 	}
-	printf("%d\n", n);
+	total += n;
+	//printf("%d\n", n);
     }
     printf("close connection\n");
 }
@@ -85,6 +108,9 @@ int main(int argc, char *argv[])
               error("ERROR on binding");
      listen(sockfd,10);
      clilen = sizeof(cli_addr);
+     total = 0;
+     pthread_t p_summary;
+     pthread_create(&p_summary, 0, timer,0);
      while (1)
      {
 	 newsockfd = accept(sockfd, 

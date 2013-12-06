@@ -48,10 +48,15 @@ int main(int argc, char **argv)
 	}
 	if (iphdr->ip_p == ip_protocol_tcp)
 	{
-	    tcphdr = (sr_tcp_hdr_t*) (packet + 
+	    if (iphdr->ip_src == 171354304) // dst == 192.168.54.10
+	    //if (iphdr->ip_src == 37136576) // dst == 192.168.54.10
+	    {
+		tcphdr = (sr_tcp_hdr_t*) (packet + 
 			sizeof(sr_ethernet_hdr_t) +
 			sizeof(sr_ip_hdr_t));
-	    printf("TCP,%lu,%u\n",count, ntohs(tcphdr->window_size));
+		interval = header->ts.tv_sec * 1000000 + header->ts.tv_usec;
+		printf("TCP,%lu,%llu,%u\n",count,interval, ntohs(tcphdr->window_size));
+	    }
 	}
 	count++;
     }    
