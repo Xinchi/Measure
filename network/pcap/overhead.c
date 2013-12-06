@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 		    t1 = timestamp[port];
 		    t2 = header->ts;
 		    //first 3 syn
-		    interval = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t2.tv_usec);
+		    interval = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t1.tv_usec);
 		    syn[port] = interval;
 		    timestamp[port] = header->ts;
 		}
@@ -71,7 +71,7 @@ int main(int argc, char **argv)
 		    t1 = timestamp[port];
 		    t2 = header->ts;
 		    //first 3 syn
-		    interval = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t2.tv_usec);
+		    interval = (t2.tv_sec - t1.tv_sec) * 1000000 + (t2.tv_usec - t1.tv_usec);
 		    fin[port] = interval;
 		}
 		//interval = header->ts.tv_sec * 1000000 + header->ts.tv_usec;
