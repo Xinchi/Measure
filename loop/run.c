@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define MAX_LOOP 15000
+#define MAX_LOOP 99999999
 unsigned long get_tsc(void)
 {
     register unsigned int lo, hi;
@@ -11,12 +11,13 @@ unsigned long get_tsc(void)
 
 int main()
 {
-    int i;
+    register int i;
     unsigned long t1, t2;
     t1 = get_tsc();
     for (i = 0; i < MAX_LOOP; i++);
     t2 = get_tsc();
 
-    printf("%ld\n", (t2 - t1)/MAX_LOOP);
+    printf("%lu\n", (t2 - t1));
+    printf("%f\n", 1.0 * (t2 - t1)/MAX_LOOP);
     return 0;
 }
