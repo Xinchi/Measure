@@ -1,0 +1,59 @@
+read from 11GB partition. sweep = 50
+
+file_size=8000MB
+8000
+latency=usec/MB,25735
+
+iostat -dx 20
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda            9384.35     0.95  308.05    2.10 38798.40    14.80   250.29     3.41   11.04   11.01   15.24   3.22 100.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda            9491.05     0.50  308.35    0.75 39197.20     5.60   253.66     3.47   11.24   11.20   29.07   3.24 100.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda            9301.35     0.85  301.85    1.25 38423.80     8.80   253.60     3.70   12.21   12.16   23.20   3.30 100.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda            9165.85     1.55  304.10    0.65 37896.00     9.00   248.76     4.34   14.26   14.22   33.23   3.28 100.00
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda            8815.30     4.35  292.55    5.85 36438.20    43.00   244.51     4.46   14.90   14.55   32.48   3.35  99.98
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda            9443.10     0.95  304.45    0.60 38995.20     6.60   255.71     2.25    7.38    7.31   46.67   3.28 100.00
+
+
+random read
+
+
+
+file_size=128MB
+128
+latency=usec/MB,2430976
+
+iostat -dx 20
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda             141.05     7.35  112.05    8.45  1099.80   403.80    24.96     1.92   15.92   14.96   28.62   8.29  99.86
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda             179.10     2.55  105.15    5.10  1138.40    35.40    21.29     1.43   12.95   12.72   17.73   9.05  99.82
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda             192.65     1.55  103.15    1.70  1183.20    13.60    22.83     1.10   10.46   10.35   17.29   9.52  99.80
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda             227.75     0.70  107.10    0.65  1341.60     5.60    25.01     1.46   13.45   13.40   20.62   9.26  99.78
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda             197.85     0.70  109.90    1.30  1242.20     8.40    22.49     1.56   14.09   13.97   24.15   8.97  99.80
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda             257.05     0.60  106.40    1.00  1453.80     7.00    27.20     1.17   10.89   10.86   14.00   9.30  99.84
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda             247.00     0.30  111.05    0.60  1496.00     4.00    26.87     1.57   13.98   13.84   41.33   8.94  99.82
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda             258.00     1.65  110.60    1.10  1505.40    11.60    27.16     1.64   14.82   14.77   19.27   8.93  99.80

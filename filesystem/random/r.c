@@ -4,17 +4,21 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <time.h>
+#include <stdlib.h>
 
 
 int main(int argc, char** argv)
 {
     int fd;
+    int random = 0;
 
+    srand(time(0));
 
     fd = open("/dev/sda3", O_RDONLY);
-    if (argc < 2)
+    if (argc < 3)
 	exit (1);
 
+    random = atoi(argv[2]);
     if (fd < 0)
     {
 	printf("error to open\n");
@@ -32,6 +36,11 @@ int main(int argc, char** argv)
     gettimeofday(&t1);
     while (1)
     {
+	//lseek(fd, 0, 0);
+	if (random)
+	{
+	    lseek(fd, rand(), 0);
+	}
 	n = read(fd, block, 4000);
 	total += n;
 	if ((total / 1000 / 1000) > file_size)
@@ -47,31 +56,6 @@ int main(int argc, char** argv)
     printf("latency=usec/MB,%llu\n", interval / file_size);
 
 
-    lseek(fd, 0, 0);
-
-    //fd = open("/dev/sda3", O_RDONLY);
-    printf("after the hot\n");
-
-    total = 0;
-    
-    gettimeofday(&t1);
-    while (1)
-    {
-	n = read(fd, block, 4000);
-	total += n;
-	if ((total / 1000 / 1000) > file_size)
-	{
-	    break;
-	}
-	printf("%llu\r", total / 1000 / 1000);
-
-    }
-    gettimeofday(&t2);
-    interval = (t2.tv_sec - t1.tv_sec) * 1000000 + 
-	       (t2.tv_usec - t1.tv_usec);
-    printf("latency=usec/MB,%llu\n", interval / file_size);
-
-    printf("%d\n",n);
     close(fd);
     return 0;
 }

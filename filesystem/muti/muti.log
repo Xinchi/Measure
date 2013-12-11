@@ -1,0 +1,54 @@
+1
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda            9827.00     0.00  316.00    0.00 40448.00     0.00   256.00     1.96    6.22    6.22    0.00   3.16 100.00
+
+
+0,latency=usec/MB,24919
+
+
+
+2
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda           10106.00     0.00  326.00    0.00 41728.00     0.00   256.00     1.96    6.00    6.00    0.00   3.03  98.80
+
+
+
+0,latency=usec/MB,33648
+1,latency=usec/MB,48931
+
+
+4
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda           10261.00     0.00  331.00    0.00 42368.00     0.00   256.00     7.93    5.81    5.81    0.00   3.02 100.00
+
+2,latency=usec/MB,93832
+
+1,latency=usec/MB,95302
+
+3,latency=usec/MB,97686
+
+0,latency=usec/MB,100072
+
+8
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda            9147.00    13.00  293.00   15.00 37760.00   112.00   245.92     2.04    6.61    6.53    8.27   3.25 100.00
+
+
+5,latency=usec/MB,120006
+
+2,latency=usec/MB,142853
+
+1,latency=usec/MB,145834
+
+7,latency=usec/MB,165154
+
+0,latency=usec/MB,167608
+
+3,latency=usec/MB,182553
+4,latency=usec/MB,193534
+
+6,latency=usec/MB,201797
+
+
