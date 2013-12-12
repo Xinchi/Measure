@@ -1,2 +1,2 @@
 all:
-	gcc r.c -o Tao_file
+	gcc r.c -o r -D_GNU_SOURCE

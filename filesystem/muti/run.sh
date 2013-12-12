@@ -1,10 +1,10 @@
-run="1 2 4 8 16 32"
-size=500
+run="1 2 3 4 5 6 7 8"
+size=200
 
 for i in $run
 do
     echo $i
     bash clean.sh
-    ./Tao_file $size $i | grep lantecy > $i.log
+    ./r $size $i
 done
 

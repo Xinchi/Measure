@@ -6,12 +6,13 @@
 #include <time.h>
 
 
+#define BLKSIZE 512
 int main(int argc, char** argv)
 {
     int fd;
 
 
-    fd = open("/dev/sda3", O_RDONLY);
+    //fd = open("/dev/sda3", O_RDONLY);
     if (argc < 3)
 	exit (1);
 
@@ -20,7 +21,9 @@ int main(int argc, char** argv)
 	printf("error to open\n");
     }
 
-    unsigned char block[4000];
+
+    unsigned char* block;
+    block = memalign(BLKSIZE, BLKSIZE);
 
     int n;
     unsigned long long total = 0;
@@ -39,6 +42,7 @@ int main(int argc, char** argv)
 
     int offset;
     pid_t child[count];
+    printf("count=%d\n",count);
     for (i = 0; i < count; i++)
     {
 	pid = fork();
@@ -46,25 +50,29 @@ int main(int argc, char** argv)
 	{
 	    child[i] = pid;
 
-	    printf("%d\n",pid);
+	    //printf("%d\n",pid);
 	    continue;
 	}
 	else
 	{
+	    fd = open("/dev/sda3", O_RDONLY | O_DIRECT);
 	    printf("child=%d\n",i);
-	    offset = lseek(fd, i* file_size * 1000 * 1000, 0);
+	    offset = lseek64(fd, i * file_size * 1024 * 1024 / 512 * 512, 0);
 	    printf("offset = %d\n", offset);
+	    total = 0;
 	    gettimeofday(&t1);
 	    while (1)
 	    {
-		n = read(fd, block, 4000);
+		n = read(fd, block, BLKSIZE);
 		if (n < 0)
 		{
 		    printf("error\n");
 		}
 		total += n;
-		if ((total / 1000 / 1000) > file_size)
+		//if ((total / 1024 / 1024) > file_size)
+		if ((total / 1024 / 1024) > 30)
 		{
+		    printf("done\n");
 		    break;
 		}
 		//printf("%llu\r", total / 1000 / 1000);
@@ -74,7 +82,8 @@ int main(int argc, char** argv)
 	    interval = (t2.tv_sec - t1.tv_sec) * 1000000 + 
 		       (t2.tv_usec - t1.tv_usec);
 	    printf("\n");
-	    printf("%d,latency=usec/MB,%llu\n", i ,interval / file_size);
+	    //printf("%d,latency=usec/MB,%llu\n", i ,interval / file_size);
+	    printf("%d,latency=usec/MB,%llu\n", i ,interval / 30);
 	    sleep (5);
 	    return 0;
 	}

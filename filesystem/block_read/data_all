@@ -1,0 +1,231 @@
+Different Cache and buffer in Linux
+
+User-selfdefine		self-managed buffer			application itself. 
+glibc			fread fwrite fopen			provide a buffer. Less system call.
+VFS			cache in (sweep) inode pages and etc	VFS is a OS managed file system in the memory. 
+FS			File system itself buffer.		old-version EXT provide some buffer and cache. XFS combine VFS toghether
+Hardware cache		Disk managed cache			hdparm shows 8MB
+
+Different kind of cache will influence each other a lot. Hard to measure which one. But by default, we define the cache is the VFS's cache.
+
+So firstly, we use the raw read glibc function which isn't a function contains some mechanism for buffering.
+We read from the /dev/sda3 instead of a file to estimate the overhead of the file system.
+We cannot disable the hardware cache, So we tested for a long time to estimate the influence of the hardware cache.
+
+We want to decrease the buffer in the user-level space. But without any buffer. (directly request for a 512KB block will hurt the performance, cannot take all the bandwidth of the disk-IO 60-70% util%)
+So we decided to read a 4KB block when testing the VFS cache size.
+
+
+
+Methodology:
+Different from the pagefault in the CH2, the pagefault's mapping is based on the memory management. But for the file cache is a different one. In Linux's view, it will try to cache as much as possible by default. There are lots of cache and dirty paged related things in /proc/sys/vm. But swappiness is a value for how presure and the behaivor on the dropping cache. zero means cache as much as it can, 100 means drop cache as quick as possible. So we design a methodology to test whether it will influence the size of the cache. We try to get the cache size from the reading latency.
+
+while (read not eof):
+	read the file
+
+lseek(fd, 0, 0);
+t1 = gettime();
+while (read not eof):
+	read the file
+t2 = gettime();
+
+We can use this method to get the latency of read the file again. By compare the time, we can know the cache size. 
+
+
+
+
+
+XLSM data: dropbox/FS_cache_size
+
+
+
+Calculate the cache size
+Given the idea by cache hint. Calculate the size in different ways. 
+
+disk-IO *(not hit) + RAM-IO * (hit) = latency
+not hit + hit = 1
+
+hit * size = cache size
+
+So ==> 
+
+Disk IO = 24500; with VFS prefetch buffer.
+RAM IO = 1810; with VFS cache
+
+cache size = (24500 - latency) / (24500 - 1810)* size 
+
+
+Discussion:
+
+popacai@popacai-ThinkPad-R400 ~ $ free
+             total       used       free     shared    buffers     cached
+Mem:       3941364    1282740    2658624          0      23080     531728
+-/+ buffers/cache:     727932    3213432
+Swap:            0          0          0
+
+system used for 1.2G by default. 
+cache size for 2.5G 
+Total 4G. without any swap.
+
+Make sence. 
+1. Linux cache as much as it can. It won't drop the cache unless it is full
+2. sweep only works for the presure. If the file has been open, it won't drop the cache. But if the file has been closed, different policy will be applied to drop or stay in memory. 
+But swappiness is a value for how presure and the behaivor on the dropping cache. zero means cache as much as it can, 100 means drop cache as quick as possible. So we design a methodology to test whether it will influence the size of the cache. We try to get the cache size from the reading latency.
+swappiness won't influence the cache size. But decide on when to drop it.
+3. Cache in the VFS in linux is not FIFO, but a special mechanism so that it can be used for caching more data which can be hit in future.
+3. our test and result are very reasonable. climb during the time, There is a drop rate, it won't climb to the maximum size at once. once reach the limitation, it start to stay flat. because there is no more space.
+
+
+
+
+swap******************************************************
+0
+---------------------------------------------------
+250
+file_size=250MB
+250
+latency=usec/MB,24843
+after the hot
+latency=usec/MB,1706
+4000
+---------------------------------------------------
+500
+file_size=500MB
+500
+latency=usec/MB,24757
+after the hot
+latency=usec/MB,1812
+4000
+---------------------------------------------------
+1000
+file_size=1000MB
+1000
+latency=usec/MB,24463
+after the hot
+latency=usec/MB,1868
+4000
+---------------------------------------------------
+2000
+file_size=2000MB
+2000
+latency=usec/MB,24061
+after the hot
+latency=usec/MB,2147
+4000
+---------------------------------------------------
+4000
+file_size=4000MB
+4000
+latency=usec/MB,24685
+after the hot
+latency=usec/MB,9814
+4000
+---------------------------------------------------
+8000
+file_size=8000MB
+8000
+latency=usec/MB,24260
+after the hot
+latency=usec/MB,17248
+4000
+swap******************************************************
+60
+---------------------------------------------------
+250
+file_size=250MB
+250
+latency=usec/MB,25022
+after the hot
+latency=usec/MB,1617
+4000
+---------------------------------------------------
+500
+file_size=500MB
+500
+latency=usec/MB,24334
+after the hot
+latency=usec/MB,2013
+4000
+---------------------------------------------------
+1000
+file_size=1000MB
+1000
+latency=usec/MB,24330
+after the hot
+latency=usec/MB,1884
+4000
+---------------------------------------------------
+2000
+file_size=2000MB
+2000
+latency=usec/MB,24103
+after the hot
+latency=usec/MB,2134
+4000
+---------------------------------------------------
+4000
+file_size=4000MB
+4000
+latency=usec/MB,24286
+after the hot
+latency=usec/MB,10044
+4000
+---------------------------------------------------
+8000
+file_size=8000MB
+8000
+latency=usec/MB,24588
+after the hot
+latency=usec/MB,17344
+4000
+swap******************************************************
+100
+---------------------------------------------------
+250
+file_size=250MB
+250
+latency=usec/MB,24666
+after the hot
+latency=usec/MB,1642
+4000
+---------------------------------------------------
+500
+file_size=500MB
+500
+latency=usec/MB,24490
+after the hot
+latency=usec/MB,1830
+4000
+---------------------------------------------------
+1000
+file_size=1000MB
+1000
+latency=usec/MB,24119
+after the hot
+latency=usec/MB,1902
+4000
+---------------------------------------------------
+2000
+file_size=2000MB
+2000
+latency=usec/MB,24314
+after the hot
+latency=usec/MB,2160
+4000
+---------------------------------------------------
+4000
+file_size=4000MB
+4000
+latency=usec/MB,23971
+after the hot
+latency=usec/MB,9603
+4000
+---------------------------------------------------
+8000
+file_size=8000MB
+8000
+latency=usec/MB,24280
+after the hot
+latency=usec/MB,17702
+4000
+
