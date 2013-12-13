@@ -1,0 +1,71 @@
+How to test the sequencial and random read. 
+
+O_DIRECT option for linux. 
+    Direct read the disk, No more buffer is provided in the VFS level.
+
+In the Q4. the guide mentioned "not in the file buffer cache". We follow it. So we don't want to ask VFS involve in. And we directly access the disk block one by one. 
+
+By using hdparm -i (hardware information) we find out the phsycial and logical block size = 512B. So we design a block by block reading test method. 
+
+memalign(BLKSIZE, BLKSIZE) // POSIX alignment aligment . 
+
+
+
+
+We find that the size of the request is so small (512B), so that it cannot take all the disk-IO bandwidth. But since this question is not for asking the max speed of the disk bandwidth, but the comparison about the seq and random.
+
+for seq: read 20MB
+for random: read 20MB randomized in the file size.
+result:
+
+40MB	   latency=usec/MB,290531
+40MB       latency=usec/MB,14945570
+
+80MB	   latency=usec/MB,281717
+80MB	   latency=usec/MB,17029677
+
+160MB	   latency=usec/MB,282843
+160MB      latency=usec/MB,17202839
+
+320MB	   latency=usec/MB,275535
+320MB      latency=usec/MB,18012700
+
+640        latency=usec/MB,283435
+640        latency=usec/MB,19340342
+
+1280       latency=usec/MB,279282
+1280MB     latency=usec/MB,19573006
+
+Discussion:
+the seq stay stable.
+40MB random write's latency increase a little bit. specially for 40MB to 80MB. it increase a little bit.
+The reason is that (1) Disk hardware cache. There 8MB, and there 20MB is going to be read and 40MB in total, So there will be a great chance for cache hit. Burst which is showed in iostat snapshot(figure)
+(2) huge file will make the svctm takes more time before it need to seek the block in a larger range.
+
+Our sequencial read is seq read. Sometimes, in the FS, if the FS is full, there must be some fragmentations which will kill performance because it is not a well-(poision?) 
+So here, we directly read the /dev/sda3 instead of a file in a real file system. This helps understand the raw block ...
+
+
+
+seq
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00 7873.00    0.00  3936.50     0.00     1.00     0.72    0.09    0.09    0.00   0.09  72.40
+
+
+
+
+
+Random read:(40MB) 20% cached
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  156.00    0.00    78.00     0.00     1.00     1.00    6.33    6.33    0.00   6.38  99.60
+(80MB) 10% cached.
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               0.00     0.00  128.00    0.00    64.00     0.00     1.00     1.00    7.84    7.84    0.00   7.78  99.60
+
+
+Sometimes boost in the random read.=> hit disk cache.
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda              25.00     0.00  265.00    0.00  1299.00     0.00     9.80     8.17   31.20   31.20    0.00   3.77 100.00
+
+
+
