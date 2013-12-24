@@ -9,7 +9,7 @@ Otherwise, these codes are published in GPLv2. Free to download and use :-)
 
 By:
     Tao Cai (taocai@ucsd.edu)
-    Xinchi Gu (TBD)
+    Xinchi Gu (xig015@ucsd.edu)
 
 Good luck and enjoy :-D
 
